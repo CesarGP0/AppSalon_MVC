@@ -9,7 +9,7 @@ use Model\Servicio;
 class APIController {
     public static function index() {
         $servicios = Servicio::all();
-        echo json_encode($servicios);
+        echo json_encode($servicios, JSON_UNESCAPED_UNICODE);
     }
 
     public static function guardar() {
@@ -17,7 +17,6 @@ class APIController {
         // Almacena la Cita y devuelve el ID
         $cita = new Cita($_POST);
         $resultado = $cita->guardar();
-
         $id = $resultado['id'];
 
         // Almacena los Servicios con el ID de la cita
@@ -31,6 +30,7 @@ class APIController {
             $citaServicio = new CitaServicio($args);
             $citaServicio->guardar();
         }
+        
         
         echo json_encode(['resultado' => $resultado]);
 
