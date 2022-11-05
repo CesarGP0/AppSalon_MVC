@@ -20,10 +20,9 @@ class APIController {
 
         $id = $resultado['id'];
 
-        // Almacena la Cita y el Servicio
-
-        // Almacena los Servicios con el ID de la Cita
+        // Almacena los Servicios con el ID de la cita
         $idServicios = explode(",", $_POST['servicios']);
+
         foreach($idServicios as $idServicio) {
             $args = [
                 'citaId' => $id,
@@ -32,17 +31,22 @@ class APIController {
             $citaServicio = new CitaServicio($args);
             $citaServicio->guardar();
         }
-
+        
         echo json_encode(['resultado' => $resultado]);
+
     }
 
-    public static function eliminar() {
-        
+    public static function eliminar(){
+
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
+
             $cita = Cita::find($id);
             $cita->eliminar();
+
             header('Location:' . $_SERVER['HTTP_REFERER']);
+
+
         }
     }
 }

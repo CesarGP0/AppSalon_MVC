@@ -10,14 +10,14 @@
 <body>
     <div class="contenedor-app">
         <div class="imagen"></div>
-        <div class="app">
+            <div class="app">
             <?php echo $contenido; ?>
-        </div>
-    </div>
+            </div>
+        </div>        
+        <?php
 
-    <?php
         echo $script ?? '';
-    ?>
-            
+        
+        ?>
 </body>
 </html>

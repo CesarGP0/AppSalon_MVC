@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Model;
 
@@ -11,14 +11,16 @@ class Servicio extends ActiveRecord {
     public $nombre;
     public $precio;
 
-    public function __construct($args = [])
+    public function __construct($arg = [])
     {
-        $this->id = $args['id'] ?? null;
-        $this->nombre = $args['nombre'] ?? '';
-        $this->precio = $args['precio'] ?? '';
+        $this->id = $arg['id'] ?? null;
+        $this->nombre = $arg['nombre'] ?? '';
+        $this->precio = $arg['precio'] ?? '';
+
     }
 
-    public function validar() {
+    public function validar()
+    {
         if(!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre del Servicio es Obligatorio';
         }
@@ -26,7 +28,7 @@ class Servicio extends ActiveRecord {
             self::$alertas['error'][] = 'El Precio del Servicio es Obligatorio';
         }
         if(!is_numeric($this->precio)) {
-            self::$alertas['error'][] = 'El precio no es válido';
+            self::$alertas['error'][] = 'El Precio no es valido';
         }
 
         return self::$alertas;

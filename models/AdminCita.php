@@ -6,6 +6,7 @@ class AdminCita extends ActiveRecord {
     protected static $tabla = 'citasServicios';
     protected static $columnasDB = ['id', 'hora', 'cliente', 'email', 'telefono', 'servicio', 'precio'];
 
+
     public $id;
     public $hora;
     public $cliente;
@@ -23,5 +24,7 @@ class AdminCita extends ActiveRecord {
         $this->telefono = $args['telefono'] ?? '';
         $this->servicio = $args['servicio'] ?? '';
         $this->precio = $args['precio'] ?? '';
+
     }
 }
+

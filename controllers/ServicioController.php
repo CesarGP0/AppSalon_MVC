@@ -7,11 +7,12 @@ use MVC\Router;
 
 class ServicioController {
     public static function index(Router $router) {
-        session_start();
+        if (!$_SESSION) {
+            session_start();
+          }
+          isAdmin();
 
-        isAdmin();
-
-        $servicios = Servicio::all();
+          $servicios = Servicio::all();
 
         $router->render('servicios/index', [
             'nombre' => $_SESSION['nombre'],
@@ -20,14 +21,17 @@ class ServicioController {
     }
 
     public static function crear(Router $router) {
-        session_start();
-        isAdmin();
-        $servicio = new Servicio;
-        $alertas = [];
+        if (!$_SESSION) {
+            session_start();
+          }
+          isAdmin();
+
+          $servicio = new Servicio;
+          $alertas = [];
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $servicio->sincronizar($_POST);
-            
+
             $alertas = $servicio->validar();
 
             if(empty($alertas)) {
@@ -44,15 +48,15 @@ class ServicioController {
     }
 
     public static function actualizar(Router $router) {
-        session_start();
-        isAdmin();
+        if (!$_SESSION) {
+            session_start();
+          }
+          isAdmin();
 
-        if(!is_numeric($_GET['id'])) return;
-
-        $servicio = Servicio::find($_GET['id']);
-        $alertas = [];
-
-        
+          if(!is_numeric($_GET['id'])) return;
+          $servicio = Servicio::find($_GET['id']);
+          $alertas = [];
+          
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $servicio->sincronizar($_POST);
 
@@ -72,9 +76,11 @@ class ServicioController {
     }
 
     public static function eliminar() {
-        session_start();
-        isAdmin();
-        
+        if (!$_SESSION) {
+            session_start();
+          }
+          isAdmin();
+
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $servicio = Servicio::find($id);
@@ -82,4 +88,5 @@ class ServicioController {
             header('Location: /servicios');
         }
     }
+   
 }
